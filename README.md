@@ -9,8 +9,8 @@ $ rails db:migrate
 ```
 
 1. On the `Band` model, add a validation on the `:name` attribute for presence and uniqueness. Write tests to confirm that both are working!
-2. On the `Band` model, write a method called `:generate_slug` which assigns `self.slug` using the band's name. Then, attach a `before_create` callback to call this method anytime a Band is created.
-3. Look at the TODOs in `app/controllers/band_controller.rb` and `spec/requests/band_spec.rb`.
+2. On the `Band` model, write a method called `:generate_slug` which assigns `self.slug` using the band's name. Then, attach a `before_create` callback to call this method anytime a Band is created. Write a test to confirm that slugs are auto-generated on new Bands.
+3. Finish writing `app/controllers/band_controller.rb` and `spec/requests/band_spec.rb`.
 
 Bonus: Use HTTParty to make a GET request to the albums API at
 ```
