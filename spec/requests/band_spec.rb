@@ -19,6 +19,15 @@ RSpec.describe Band, type: :request do
       band_response = JSON.parse(response.body)
       expect(band_response['name']).to eq "The Beatles"
     end
+
+    it 'includes the gigs' do
+      venue = Venue.create(name: 'The Roundhouse')
+      gig = Gig.create(date: '2019-01-01', band: band, venue: venue)
+      get "/bands/#{band.slug}"
+      band_response = JSON.parse(response.body)
+      expect(band_response['gigs'].size).to eq 1
+      expect(band_response['gigs'][0]['date']).to eq '2019-01-01'
+    end
   end
 
   describe '#create' do

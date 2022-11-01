@@ -6,7 +6,7 @@ class BandsController < ApplicationController
   end
 
   def show
-    render json: @band, status: :ok
+    render json: @band.serialize, status: :ok
   end
 
   def create
