@@ -46,19 +46,14 @@ RSpec.describe Band, type: :request do
 
   describe '#update' do
     let(:new_genre) { 'Psychedelic Rock' }
+
     it "updates a band" do
+      # TODO Complete this test which updates the band's genre to 'Psychedelic Rock'
+      # Make sure the response is :ok,
+      # and then make sure the band's genre has been updated in the database!
       post "/bands/#{band.slug}", params: { band: { genre: new_genre } }
-      expect(response).to have_http_status(:ok)
-      band.reload
-      expect(band.genre).to eq new_genre
     end
   end
 
-  describe '#destroy' do
-    it "deletes a band" do
-      expect {
-        delete "/bands/#{band.slug}"
-      }.to change { Band.count }.by(-1)
-    end
-  end
+  # TODO Add a test for the #destroy action
 end

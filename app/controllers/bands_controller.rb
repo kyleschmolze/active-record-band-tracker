@@ -1,5 +1,5 @@
 class BandsController < ApplicationController
-  before_action :set_band, only: [:show, :update, :destroy]
+  before_action :set_band, only: [:show, :update]
 
   def index
     render json: Band.all, status: :ok
@@ -11,25 +11,20 @@ class BandsController < ApplicationController
 
   def create
     @band = Band.new(band_params)
-    if @band.save
-      render json: @band, status: :created
-    else
-      render json: { errors: @band.errors.full_messages }, status: :unprocessable_entity
-    end
+    # TODO Finish this action
   end
 
   def update
-    if @band.update(band_params)
-      render json: @band, status: :ok
-    else
-      render json: { errors: @band.errors.full_messages }, status: :unprocessable_entity
-    end
+    # TODO Write this action:
+    # Use ActiveRecord's @band.update() method
+    # (and pass in the band_params)
+    # what does @band.update() return?
+
+    # If the update fails, try rendering the errors using @band.errors.full_messages
+    # A binding.pry will be very helpful here to test your code first!
   end
 
-  def destroy
-    @band.destroy
-    render json: { success: true}, status: :ok
-  end
+  # TODO Add a destroy action
 
   protected
 
