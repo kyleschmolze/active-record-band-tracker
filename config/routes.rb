@@ -4,5 +4,6 @@ Rails.application.routes.draw do
   get 'bands', to: 'bands#index'
   get 'bands/:slug', to: 'bands#show'
   post 'bands', to: 'bands#create'
-  post 'bands/:slug', to: 'bands#update_genre'
+  post 'bands/:slug', to: 'bands#update'
+  delete 'bands/:slug', to: 'bands#destroy'
 end

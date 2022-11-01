@@ -1,29 +1,46 @@
 class BandsController < ApplicationController
+  before_action :set_band, only: [:show, :update, :destroy]
+
   def index
-    render json: Band.all, status: 200
+    render json: Band.all, status: :ok
   end
 
   def show
-    @band = Band.find_by_slug(params[:slug])
-    if @band.present?
-      render json: @band, status: 200
-    else
-      render json: { error: 'Not found' }, status: 404
-    end
+    render json: @band, status: :ok
   end
 
   def create
-    @band = Band.create(params[:name], params[:genre], nil)
-    @band.generate_slug
-    render json: @band, status: 201
+    @band = Band.new(band_params)
+    if @band.save
+      render json: @band, status: :created
+    else
+      render json: { errors: @band.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
-  def update_genre
-    @band = Band.update_genre_by_slug(params[:slug], params[:genre])
-    if @band.present?
-      render json: @band, status: 200
+  def update
+    if @band.update(band_params)
+      render json: @band, status: :ok
     else
-      render json: { error: 'Not found' }, status: 404
+      render json: { errors: @band.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @band.destroy
+    render json: { success: true}, status: :ok
+  end
+
+  protected
+
+  def band_params
+    params.require(:band).permit(:name, :genre)
+  end
+
+  def set_band
+    @band = Band.find_by(slug: params[:slug])
+    unless @band.present?
+      render json: { error: 'Band not found' }, status: :not_found
     end
   end
 end
